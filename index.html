@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hong Kong Live</title>
+  <style>
+    :root {
+      --bg: #e8e8e8;
+      --panel: #ffffff;
+      --border: #d0d0d0;
+      --text: #1a1a1a;
+      --muted: #5c5c5c;
+      --accent: #e23d28;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 1rem;
+    }
+
+    .description {
+      font-size: 1.15rem;
+      line-height: 1.55;
+      max-width: 42rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      min-height: 220px;
+      padding: 1.25rem 1.4rem;
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .weather {
+      margin-top: 1rem;
+    }
+
+    .weather-status {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .weather-status[data-state="error"] {
+      color: var(--accent);
+    }
+
+    .weather-main {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .weather-icon {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+    }
+
+    .weather-temp {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .weather-temp span {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .weather-condition {
+      margin-top: 0.35rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .weather-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem 0.75rem;
+      font-size: 0.92rem;
+    }
+
+    .weather-stats dt {
+      color: var(--muted);
+    }
+
+    .weather-stats dd {
+      font-weight: 600;
+    }
+
+    .weather-warning {
+      margin-top: 0.9rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: 10px;
+      background: #fff4f2;
+      color: #9a2418;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .weather-updated {
+      margin-top: 0.75rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 720px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>Hong Kong <span>Live</span></h1>
+    <p class="meta">Hu XiangCheng · EEE</p>
+    <p class="description">
+      This dashboard shows real-time Hong Kong open data including weather, transport, and air quality.
+    </p>
+    <section class="cards" aria-label="Dashboard sections">
+      <article class="card">
+        <h2>Weather</h2>
+        <div class="weather" id="weather" aria-live="polite">
+          <p class="weather-status" data-state="loading">Loading Hong Kong weather…</p>
+        </div>
+      </article>
+      <article class="card">
+        <h2>Transport</h2>
+        <div class="weather" id="transport" aria-live="polite">
+          <p class="weather-status" data-state="loading">Loading MTR trains…</p>
+        </div>
+      </article>
+      <article class="card">
+        <h2>Air Quality</h2>
+        <div class="weather" id="air-quality" aria-live="polite">
+          <p class="weather-status" data-state="loading">Loading air quality…</p>
+        </div>
+      </article>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
