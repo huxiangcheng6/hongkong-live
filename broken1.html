@@ -20,13 +20,14 @@
   <script>
     // This card does not work in a browser. Your job is to find out why,
     // and to fix it. Open the browser console to see what happens.
-    const URL = "https://www.aqhi.gov.hk/epd/ddata/html/out/aqhi_ind_rss_Eng.xml";
+    const URL = "https://dashboard.data.gov.hk/api/aqhi-individual?format=json";
 
     async function loadAirQuality() {
       const response = await fetch(URL);
-      const text = await response.text();
-      document.getElementById("aqhi").textContent = text.length;
-      document.getElementById("station").textContent = "Central/Western";
+      const data = await response.json();
+      const station = data.find((item) => item.station === "Central/Western");
+      document.getElementById("aqhi").textContent = station.aqhi;
+      document.getElementById("station").textContent = station.station;
     }
 
     loadAirQuality();

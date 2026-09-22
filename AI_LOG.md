@@ -20,6 +20,7 @@ Project notes and changes made with AI assistance.
 - Encountered issue: Cursor's built-in Live Server at `127.0.0.1:8765` failed to start. Workaround: preview by double-clicking `index.html` directly in Chrome browser.
 - Completed GitHub Education student verification. Application approved. Awaiting Copilot benefits (estimated 72-hour activation).
 - Submitted `index.html` to Moodle.
+
 ## Session 2 (2026-09-08)
 
 - Read the Hong Kong Observatory weather data via browser.
@@ -31,3 +32,20 @@ Project notes and changes made with AI assistance.
 - Used GitHub Copilot to create AGENTS.md with project rules.
 - Extracted all inline JavaScript from index.html into a separate app.js file.
 - Tested offline scenario: turned off Wi-Fi, reloaded page, and weather card correctly showed "Could not load weather" message instead of going blank. Turned Wi-Fi back on and data returned.
+
+## Session 3
+
+- Used HKU GenAI free chat to review implementation plans for the Air Quality and Transport cards before asking Copilot to edit files.
+
+- Used GitHub Copilot to implement the Air Quality card with exact matching for Central/Western.
+
+- Used GitHub Copilot to implement the Transport card and checked the result against the live MTR API.
+
+- Tested whether Copilot would follow [AGENTS.md](http://AGENTS.md) when asked to rewrite the project in React. Copilot stopped and asked before overriding the project rules, so no React changes were made.
+
+- Used HKU GenAI to understand the CORS error in broken1.html, then used Copilot to replace the blocked XML source with the working AQHI JSON API.
+
+- Used Copilot to repair broken2.html by checking json.status, converting ttnt to a number, and handling an empty train list.
+
+- Tested broken2.html with STA = "XXX" and confirmed that it displayed an error message instead of crashing, then restored STA to "HKU".
+
