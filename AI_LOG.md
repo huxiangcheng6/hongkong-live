@@ -49,3 +49,37 @@ Project notes and changes made with AI assistance.
 
 - Tested broken2.html with STA = "XXX" and confirmed that it displayed an error message instead of crashing, then restored STA to "HKU".
 
+## Session 4 (2026-09-22)
+
+- Used GitHub Copilot Agent to help with testing and code review of the Hong Kong Live dashboard.
+- Separated formatting logic from data fetching so the logic could be tested independently.
+- Wrote and ran Node.js tests for the formatting functions.
+- Initially confirmed that all five existing tests passed.
+- Added a regression test using both "Central/Western" and "Central" to expose a station-name partial-match bug that the original tests had missed.
+- Fixed the AQHI station lookup so that it uses an exact station-name match instead of substring matching.
+- Re-ran the test suite and confirmed that all six tests passed.
+- Reviewed the agent-written changes and checked the diff before accepting them.
+- Created a Git save point before starting a risky experiment.
+- Created an `experiment` branch and asked the agent to add a fourth card showing a live chart of temperature over the past 24 hours.
+- Found that the current weather feed did not provide the required 24-hour historical temperature data, so the experiment could not produce a genuine history chart.
+- Returned to the `master` branch, deleted the failed `experiment` branch, and confirmed that the original Weather, Transport and Air Quality cards still worked.
+
+## Session 5 (2026-09-29)
+
+- Continued the same `hongkong-live` project in Visual Studio Code with GitHub Copilot.
+- Temporarily disabled VS Code's built-in browser chat tools so that MCP browser tools could be tested separately.
+- Checked the official `@playwright/mcp` package and repository before connecting it.
+- Added Context7 to `.vscode/mcp.json`.
+- Used Context7 to look up current documentation for adding a timeout to the browser `fetch` API and confirmed that the agent actually used the Context7 MCP tools.
+- Added Playwright MCP with `npx -y @playwright/mcp@0.0.79`.
+- Inspected the Playwright tool list and distinguished read-only browser tools from tools that can change browser or page state.
+- Deliberately changed the MCP configuration key so the Context7 and Playwright tools disappeared, then restored the correct configuration and confirmed both MCP servers were running again.
+- Created `.github/prompts/check-dashboard.prompt.md` as a reusable `/check-dashboard` prompt.
+- Used `/check-dashboard` to open `http://localhost:5500`, inspect the Weather, Transport and Air Quality cards, check whether their values looked plausible, and take a full-page screenshot.
+- Deliberately changed the MTR station from `HKU` to `XXX` and confirmed that the Transport card showed `Unable to load MTR train information.`
+- Ran `/check-dashboard` again and confirmed that Playwright correctly detected the broken Transport card while the Weather and Air Quality cards remained normal.
+- Restored the MTR station to `HKU` and confirmed all three dashboard cards worked normally again.
+- Re-enabled VS Code's built-in browser chat tools after the MCP experiment.
+- Submitted the required MCP configuration and saved prompt as the WS5C ZIP file.
+- Submitted a dashboard screenshot showing the Transport error and marked the issue that the agent caught.
+- Estimated the five-session agent cost using the worksheet assumptions as Standard: `$0.10` and Fast: `$0.60`.

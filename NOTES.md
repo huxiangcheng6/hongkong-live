@@ -42,3 +42,113 @@ Invalid MTR station ("XXX"):
 
 - No undefined, NaN, null, blank card, or blank page.
 
+## Task D - Branch, break, roll back
+
+I created an experiment branch and asked the agent to add a live chart of temperature over the past 24 hours. The fourth card displayed "Temperature history unavailable" because the current weather feed does not provide 24-hour historical temperature data.
+
+Branch list before deleting the failed experiment:
+  experiment
+* master
+
+Branch list after deleting the experiment:
+* master
+
+After switching back to master, the original Weather, Transport and Air Quality cards worked as before.
+
+## Session 5 - MCP Tools and Automation
+
+### Task A - Agent without browser tools
+
+I temporarily disabled VS Code's built-in browser chat tools with:
+
+`"workbench.browser.enableChatTools": false`
+
+Without direct browser access, the agent could not simply inspect the dashboard page. When asked about live values, it relied on other available information such as the public APIs instead of reading the rendered page itself.
+
+### Task A2 - Vet Playwright MCP
+
+Before connecting Playwright MCP, I checked the official npm package and its GitHub repository.
+
+- Package: `@playwright/mcp`
+- Repository: `microsoft/playwright-mcp`
+- The npm package linked to the Microsoft GitHub repository.
+- The package and repository appeared to be maintained by the Playwright/Microsoft team.
+
+### Task B - Connect MCP servers
+
+I configured two MCP servers in `.vscode/mcp.json`:
+
+- Context7
+- Playwright
+
+Context7 was tested by asking for current documentation on setting a timeout for the browser `fetch` API.
+
+Playwright exposed browser tools including tools for navigation, snapshots, screenshots, console messages, network requests and page interaction.
+
+I also confirmed that MCP tools only appeared when the configuration used the correct key and structure.
+
+### Task C - Reusable dashboard check
+
+I created:
+
+`.github/prompts/check-dashboard.prompt.md`
+
+This created the `/check-dashboard` command.
+
+On the first run, Playwright opened `http://localhost:5500` and correctly reported the live dashboard:
+
+- Weather: 29°C, "Mainly fine"
+- Transport: a valid next-train time to CHW
+- Air Quality: Central/Western, AQHI 3, Low
+
+It also saved a full-page screenshot.
+
+I then deliberately changed the MTR request from:
+
+`sta=HKU`
+
+to:
+
+`sta=XXX`
+
+After a hard refresh, the Transport card displayed:
+
+`Unable to load MTR train information.`
+
+Running `/check-dashboard` again correctly detected the Transport error while Weather and Air Quality remained normal.
+
+I then restored:
+
+`sta=HKU`
+
+and confirmed that the Transport card returned to a normal next-train value.
+
+Finally, I restored the VS Code browser setting to:
+
+`"workbench.browser.enableChatTools": true`
+
+and confirmed that the built-in browser tools appeared again in the tool picker.
+
+### Task D - Estimated agent cost
+
+Estimated agent requests from Tasks B and C:
+
+`4 × 5 sessions = 20 requests`
+
+Using the worksheet assumptions:
+
+- Input: `20 × 5,000 = 100,000 tokens`
+- Output: `20 × 1,000 = 20,000 tokens`
+- Standard estimated cost: `$0.10`
+- Fast estimated cost: `$0.60`
+
+### Session 5 final state
+
+- Context7 MCP connected.
+- Playwright MCP connected.
+- `/check-dashboard` reusable prompt works.
+- Built-in browser tools restored.
+- MTR station restored to `HKU`.
+- Weather, Transport and Air Quality cards working normally.
+- WS5C ZIP prepared with `mcp.json` and `check-dashboard.prompt.md`.
+- Dashboard screenshot submitted to iClass ONE with the Transport error marked.
