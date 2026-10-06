@@ -87,8 +87,7 @@ export function formatTemp(data) {
   `;
 }
 
-export function formatAqhi(data) {
-  const stationName = "Central/Western";
+export function formatAqhi(data, stationName = "Central/Western") {
   const stations = Array.isArray(data) ? data : [];
   const station = stations.find((item) => item.station === stationName);
 
