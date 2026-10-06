@@ -152,3 +152,20 @@ Using the worksheet assumptions:
 - Weather, Transport and Air Quality cards working normally.
 - WS5C ZIP prepared with `mcp.json` and `check-dashboard.prompt.md`.
 - Dashboard screenshot submitted to iClass ONE with the Transport error marked.
+
+## Session 6 - Security Audit
+
+- Completed a security audit covering secrets, dependencies, untrusted API data, failure behaviour, MCP access, and attribution.
+- Searched for `key`, `token`, `secret`, and `password`; no real API keys, access tokens, passwords, or other credentials were found.
+- Confirmed the dashboard does not use an unverified third-party package.
+- Replaced fetched-data `innerHTML` rendering in `app.js` with safe DOM APIs, `textContent`, `replaceChildren`, and safe attributes.
+- Kept the existing formatter tests compatible and corrected AQHI station handling.
+- Tested the responsive layout at 375 x 812: the three cards stack vertically, text remains readable, and there is no problematic horizontal overflow.
+- Tested failure behaviour by blocking the three external API domains in Chrome DevTools Request conditions:
+  - Weather: `Could not load weather. Check your connection and try again.`
+  - Transport: `Unable to load MTR train information.`
+  - Air Quality: `Air quality unavailable.`
+- Restored the network and confirmed live data returned normally.
+- Added the footer `Data from the Hong Kong Government and DATA.GOV.HK.`
+- Final test result: 5 passed, 0 failed.
+- Final code commit: `complete session 6 security audit fixes`.

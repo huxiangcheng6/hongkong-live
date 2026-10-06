@@ -83,3 +83,18 @@ Project notes and changes made with AI assistance.
 - Submitted the required MCP configuration and saved prompt as the WS5C ZIP file.
 - Submitted a dashboard screenshot showing the Transport error and marked the issue that the agent caught.
 - Estimated the five-session agent cost using the worksheet assumptions as Standard: `$0.10` and Fast: `$0.60`.
+
+## Session 6 (2026-10-06)
+
+- Continued the existing Hong Kong Live project in Visual Studio Code with GitHub Copilot.
+- Audited the project for secrets by searching for `key`, `token`, `secret`, and `password`; no real credentials were found.
+- Reviewed dependencies and confirmed the dashboard uses local project JavaScript rather than an unverified third-party package.
+- Reviewed the use of `innerHTML` for external API data and identified it as unsafe for untrusted fetched content.
+- Used Copilot to refactor the dashboard rendering so fetched values are inserted with DOM APIs, `textContent`, `replaceChildren`, and safe attributes instead of `innerHTML`.
+- Kept the existing formatter tests compatible and corrected the AQHI station handling.
+- Ran `npm.cmd test` and confirmed 5 tests passed and 0 failed.
+- Tested the dashboard at 375 x 812 responsive size.
+- Tested failure behaviour by blocking the three external API domains in Chrome DevTools Request conditions. Weather, Transport, and Air Quality each remained visible and showed explicit error messages.
+- Added the footer `Data from the Hong Kong Government and DATA.GOV.HK.`
+- Committed the audited fixes with commit message `complete session 6 security audit fixes`.
+- Reviewed and accepted the changes after testing them.
